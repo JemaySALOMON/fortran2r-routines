@@ -13,8 +13,10 @@ solvef90 <- function(X) {
   matrix(res$Ainv, n, n)
 }
 
+## correctness + error demo
 set.seed(1)
-A <- matrix(rnorm(1e6), 1000, 1000)
-cat("invertible: max err =", max(abs(solve(A) - solvef90(A))), "\n")
+n = 1000
+A <- matrix(rnorm(n*n), n, n)
+cat("invertible 1000x1000: max err =", max(abs(solve(A) - solvef90(A))), "\n")
 S <- matrix(c(1,2,2,4), 2, 2)
-tryCatch(solvef90(S), error = conditionMessage)
+cat("singular ->", tryCatch(solvef90(S), error = conditionMessage), "\n\n")
